@@ -17,6 +17,7 @@ It defines classes_and_methods that process MotionCor2 log and make it can be re
 
 import sys
 import os
+import getopt
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -46,7 +47,8 @@ def main(argv=None): # IGNORE:C0111
     if argv is None:
         argv = sys.argv
     else:
-        sys.argv.extend(argv)
+        #sys.argv.extend(argv)
+        pass
 
     program_name = os.path.basename(sys.argv[0])
     program_version = "v%s" % __version__
@@ -78,13 +80,26 @@ USAGE
         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='+')
 
         # Process arguments
-        args = parser.parse_args()
+        argv = argv[1:]
+        print argv
+        optlist, args = getopt.getopt(argv, 'hrvieV', ['input=', 'output='])
+        print optlist,args
 
-        paths = args.paths
-        verbose = args.verbose
-        recurse = args.recurse
-        inpat = args.include
-        expat = args.exclude
+        verbose = 0
+        recurse = 0
+        inpat = 0
+        expat = 0
+        for i in optlist:
+            #print i[0]
+            #print i[1]
+            if i[0] == '-v':
+                verbose = 1
+            elif i[0] == '-r':
+                recurse = 1
+            elif i[0] == '-i':
+                inpat = 1
+            elif i[0] == '-e':
+                expat = 1
 
         if verbose > 0:
             print("Verbose mode on")
@@ -96,9 +111,6 @@ USAGE
         if inpat and expat and inpat == expat:
             raise CLIError("include and exclude pattern are equal! Nothing will be processed.")
 
-        for inpath in paths:
-            ### do something with inpath ###
-            print(inpath)
         return 0
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
