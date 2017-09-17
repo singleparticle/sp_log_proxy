@@ -24,9 +24,11 @@ No need configure
 No need installation
 
 # Operating instructions
-		`which MotionCor2` -InMrc Falcon_2012_06_12-14_33_35_0_movie.mrcs -OutMrc Falcon_2012_06_12-14_33_35_0_movie_out.mrcs -LogFile MotionCor2.log0-Full.log
-		`which python` sp_log_proxy.py --input MotionCor2.log0-Full.log --output motioncorr.sp0.log
-		`which dosef_logviewer` &
+```
+`which MotionCor2` -InMrc Falcon_2012_06_12-14_33_35_0_movie.mrcs -OutMrc Falcon_2012_06_12-14_33_35_0_movie_out.mrcs -LogFile MotionCor2.log0-Full.log
+`which python` sp_log_proxy.py --input MotionCor2.log0-Full.log --output motioncorr.sp0.log
+`which dosef_logviewer` &
+```
 
 # File manifest
 None
@@ -41,11 +43,11 @@ xiaodong.han@bluejayimaging.com
 None
 
 # Troubleshooting
-1. bash: MotionCor2: command not found...
+* bash: MotionCor2: command not found...<br>
 Find the MotionCor2 application first by `find`, then add the path to $PATH environment.
-2. python: can't open file 'sp_log_proxy.py': [Errno 2] No such file or directory
+* python: can't open file 'sp_log_proxy.py': [Errno 2] No such file or directory<br>
 Use absolute path of sp_log_proxy.py or run it in the directory of sp_log_proxy.py.
-3. bash: dosef_logviewer: command not found...
+* bash: dosef_logviewer: command not found...<br>
 Find the dosef_logviewer application first by `find`, then add the path to $PATH environment.
 
 # Credits and acknowledgements
