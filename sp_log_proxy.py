@@ -79,28 +79,34 @@ USAGE
         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='+')
 
         # Process arguments
+        print argv
         argv = argv[1:]
-        #print argv
         optlist, args = getopt.getopt(argv, 'hrvieV', ['input=', 'output='])
         print optlist,args
 
-        verbose = 0
-        recurse = 0
-        inpat = 0
-        expat = 0
-        for i in optlist:
-            #print i[0]
-            #print i[1]
-            if i[0] == '-v':
-                verbose = 1
-            elif i[0] == '-r':
-                recurse = 1
-            elif i[0] == '-i':
-                inpat = 1
-            elif i[0] == '-e':
-                expat = 1
+        verbose = False
+        recurse = False
+        inpat = False
+        expat = False
+        input_file = ''
+        output_file = ''
+        for o in optlist:
+            #print o[0]
+            #print o[1]
+            if o[0] == '-v':
+                verbose = True
+            elif o[0] == '-r':
+                recurse = True
+            elif o[0] == '-i':
+                inpat = True
+            elif o[0] == '-e':
+                expat = True
+            elif o[0] == '--input':
+                input_file = o[1]
+            elif o[0] == '--output':
+                output_file = o[1]
 
-        if verbose > 0:
+        if verbose:
             print("Verbose mode on")
             if recurse:
                 print("Recursive mode on")
@@ -109,6 +115,37 @@ USAGE
 
         if inpat and expat and inpat == expat:
             raise CLIError("include and exclude pattern are equal! Nothing will be processed.")
+
+        # check if input file exist
+        cwd = os.getcwd()
+        print 'cwd: ' + cwd
+        if os.path.isfile(input_file):
+            # read file
+            print 'input file exist'
+            fr = open(input_file, 'r')
+            fw = open(output_file, 'w')
+            try:
+                lines = fr.readlines()
+                for line in lines:
+                    print line
+                    # remove space at the beginning of the line
+                    line = ' '.join(line.split())
+                    if line.startswith('#') is True:
+                        line = line + '\n'
+                    else:
+                        number = line.split()[0]
+                        # format number to 3 bits
+                        number = '%03d' %int(number)
+                        number = '#' + number + ' :'
+
+                        line = line.split()[1:]
+                        line.insert(0, number)
+                        line = ' '.join(line)
+                        line = '......Shift of Frame ' + line + '\n'
+                    fw.write(line)
+            finally:
+                fr.close()
+                fw.close()
 
         return 0
     except KeyboardInterrupt:
