@@ -1,7 +1,7 @@
 #!/usr/local/bin/python2.7
 # encoding: utf-8
 '''
-sp.sp_log_proxy -- 
+sp.sp_log_proxy -- single paticle log converter
 
 It defines classes_and_methods that process MotionCor2 log and make it can be read by motioncorr log viewer
 
@@ -17,6 +17,7 @@ It defines classes_and_methods that process MotionCor2 log and make it can be re
 
 import sys
 import os
+import getopt
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
@@ -24,7 +25,7 @@ from argparse import RawDescriptionHelpFormatter
 __all__ = []
 __version__ = 0.1
 __date__ = '2017-09-16'
-__updated__ = '2017-09-16'
+__updated__ = '2017-09-17'
 
 DEBUG = 1
 TESTRUN = 0
@@ -78,15 +79,34 @@ USAGE
         parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='+')
 
         # Process arguments
-        args = parser.parse_args()
+        print argv
+        argv = argv[1:]
+        optlist, args = getopt.getopt(argv, 'hrvieV', ['input=', 'output='])
+        print optlist,args
 
-        paths = args.paths
-        verbose = args.verbose
-        recurse = args.recurse
-        inpat = args.include
-        expat = args.exclude
+        verbose = False
+        recurse = False
+        inpat = False
+        expat = False
+        input_file = ''
+        output_file = ''
+        for o in optlist:
+            #print o[0]
+            #print o[1]
+            if o[0] == '-v':
+                verbose = True
+            elif o[0] == '-r':
+                recurse = True
+            elif o[0] == '-i':
+                inpat = True
+            elif o[0] == '-e':
+                expat = True
+            elif o[0] == '--input':
+                input_file = o[1]
+            elif o[0] == '--output':
+                output_file = o[1]
 
-        if verbose > 0:
+        if verbose:
             print("Verbose mode on")
             if recurse:
                 print("Recursive mode on")
@@ -96,9 +116,37 @@ USAGE
         if inpat and expat and inpat == expat:
             raise CLIError("include and exclude pattern are equal! Nothing will be processed.")
 
-        for inpath in paths:
-            ### do something with inpath ###
-            print(inpath)
+        # check if input file exist
+        cwd = os.getcwd()
+        print 'cwd: ' + cwd
+        if os.path.isfile(input_file):
+            # read file
+            print 'input file exist'
+            fr = open(input_file, 'r')
+            fw = open(output_file, 'w')
+            try:
+                lines = fr.readlines()
+                for line in lines:
+                    print line
+                    # remove space at the beginning of the line
+                    line = ' '.join(line.split())
+                    if line.startswith('#') is True:
+                        line = line + '\n'
+                    else:
+                        number = line.split()[0]
+                        # format number to 3 bits
+                        number = '%03d' %int(number)
+                        number = '#' + number + ' :'
+
+                        line = line.split()[1:]
+                        line.insert(0, number)
+                        line = ' '.join(line)
+                        line = '......Shift of Frame ' + line + '\n'
+                    fw.write(line)
+            finally:
+                fr.close()
+                fw.close()
+
         return 0
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
@@ -130,4 +178,4 @@ if __name__ == "__main__":
         stats.print_stats()
         statsfile.close()
         sys.exit(0)
-    sys.exit(main(sys.argv))
+    sys.exit(main())
