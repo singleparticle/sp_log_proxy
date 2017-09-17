@@ -24,9 +24,9 @@ No need configure
 No need installation
 
 # Operating instructions
-`which MotionCor2` -InMrc Falcon_2012_06_12-14_33_35_0_movie.mrcs -OutMrc Falcon_2012_06_12-14_33_35_0_movie_out.mrcs -LogFile MotionCor2.log0-Full.log
-`which python` sp_log_proxy.py --input MotionCor2.log0-Full.log --output motioncorr.sp0.log
-`which dosef_logviewer` &
+		`which MotionCor2` -InMrc Falcon_2012_06_12-14_33_35_0_movie.mrcs -OutMrc Falcon_2012_06_12-14_33_35_0_movie_out.mrcs -LogFile MotionCor2.log0-Full.log
+		`which python` sp_log_proxy.py --input MotionCor2.log0-Full.log --output motioncorr.sp0.log
+		`which dosef_logviewer` &
 
 # File manifest
 None
