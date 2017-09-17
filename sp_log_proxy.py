@@ -1,7 +1,7 @@
 #!/usr/local/bin/python2.7
 # encoding: utf-8
 '''
-sp.sp_log_proxy -- 
+sp.sp_log_proxy -- single paticle log converter
 
 It defines classes_and_methods that process MotionCor2 log and make it can be read by motioncorr log viewer
 
@@ -25,7 +25,7 @@ from argparse import RawDescriptionHelpFormatter
 __all__ = []
 __version__ = 0.1
 __date__ = '2017-09-16'
-__updated__ = '2017-09-16'
+__updated__ = '2017-09-17'
 
 DEBUG = 1
 TESTRUN = 0
@@ -47,8 +47,7 @@ def main(argv=None): # IGNORE:C0111
     if argv is None:
         argv = sys.argv
     else:
-        #sys.argv.extend(argv)
-        pass
+        sys.argv.extend(argv)
 
     program_name = os.path.basename(sys.argv[0])
     program_version = "v%s" % __version__
@@ -81,7 +80,7 @@ USAGE
 
         # Process arguments
         argv = argv[1:]
-        print argv
+        #print argv
         optlist, args = getopt.getopt(argv, 'hrvieV', ['input=', 'output='])
         print optlist,args
 
@@ -142,4 +141,4 @@ if __name__ == "__main__":
         stats.print_stats()
         statsfile.close()
         sys.exit(0)
-    sys.exit(main(sys.argv))
+    sys.exit(main())
