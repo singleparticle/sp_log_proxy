@@ -2,7 +2,7 @@ SP LOG PROXY
 ============
 
 Summary
-_______
+-------
 This module process MotionCor2 test log, convert it to motioncorr test log, so dosef_logviewer can read it then show graph/curve to cryoEM users.
 
 #Background
