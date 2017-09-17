@@ -57,13 +57,11 @@ def main(argv=None): # IGNORE:C0111
     program_license = '''%s
 
   Created by xiaodong han on %s.
-  Copyright 2017 bluejayimaging. All rights reserved.
 
-  Licensed under the Apache License 2.0
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Distributed on an "AS IS" basis without warranties
-  or conditions of any kind, either express or implied.
+  Copyright (C) 1989, 1991 Free Software Foundation, Inc., <http://fsf.org/>
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  Everyone is permitted to copy and distribute verbatim copies
+  of this license document, but changing it is not allowed.
 
 USAGE
 ''' % (program_shortdesc, str(__date__))
