@@ -24,7 +24,7 @@ This Git repository convert MotionCor2 log to motioncorr log, so dosef_logviewer
 No need configure
 
 # Installation instructions
-No need installation
+No need install
 
 # Operating instructions
 ```
@@ -34,7 +34,7 @@ No need installation
 ```
 
 # File manifest
-None
+To be add
 
 # Copyright and licensing information
 The sp logproxy program are licensed under the terms of the GNU Public License version 2 (GPLv2).
