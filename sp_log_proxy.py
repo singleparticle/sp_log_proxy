@@ -145,6 +145,10 @@ USAGE
                 fr.close()
                 fw.close()
 
+        # start running dosef_logviewer
+        import subprocess
+        subprocess.Popen('dosef_logviewer')
+
         return 0
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
